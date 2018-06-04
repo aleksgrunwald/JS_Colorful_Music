@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <div class="keys">
+    <div data-key="65" class="key" style="box-shadow: blue">
+      <kbd>A</kbd>
+      <span class="key__sound">clap</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="key__sound">hihat</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="key__sound">kick</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="key__sound">openhat</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="key__sound">boom</span>
+    </div>
+    <div data-key="90" class="key">
+      <kbd>Z</kbd>
+      <span class="key__sound">ride</span>
+    </div>
+    <div data-key="88" class="key">
+      <kbd>X</kbd>
+      <span class="key__sound">snare</span>
+    </div>
+    <div data-key="67" class="key">
+      <kbd>C</kbd>
+      <span class="key__sound">tom</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="90" src="sounds/ride.wav"></audio>
+  <audio data-key="88" src="sounds/snare.wav"></audio>
+  <audio data-key="67" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+
+<script>
+
+  function randomRGBAColor() {
+    const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+    const randomByte = () => randomNumber(0, 255)
+    const randomPercent = () => (randomNumber(30, 70) * 0.01).toFixed(2)
+    const randomCssRgba = () => `rgba(${[randomByte(), randomByte(), randomByte(), randomPercent()].join(',')})`
+    return randomCssRgba()
+  }
+
+  function addPlayingStyle(element, styleAttributes) {
+    return element.style.cssText += ';' + styleAttributes
+  }
+  
+  function playAudioAndAnimation(audioToPlay, element, element2) {
+    if (!audioToPlay) return
+    audioToPlay.currentTime = 0
+    audioToPlay.play()
+    let randomColor = randomRGBAColor()
+    let divPlayingStyle = `border: 2px solid #FFF; 
+                          box-shadow: 0px 0px 260px 80px ${randomColor} !important; 
+                          background-color: ${randomColor} !important;`
+    addPlayingStyle(element, divPlayingStyle)
+    // let kbdPlayingStyle = `font-size: 3.8rem !important`
+    // addPlayingStyle(element.getElementsByTagName("kbd")[0], kbdPlayingStyle)
+  }
+
+  function playByMouseClick() {
+    let clickedElementKey = this.getAttribute("data-key")
+    let audioToPlay = document.querySelector(`audio[data-key="${clickedElementKey}"]`)
+    playAudioAndAnimation(audioToPlay, this)
+  }
+
+  function playByKeyPress(e) {
+    let pressedKey = e.keyCode
+    let audioToPlay = document.querySelector(`audio[data-key="${pressedKey}"]`)
+    let divAssignedToKey = document.querySelector(`div[data-key="${pressedKey}"]`)
+    playAudioAndAnimation(audioToPlay, divAssignedToKey)
+  }
+
+  function removePlayingStyle(e) {
+  //  if (e.propertyName !== 'transform') return
+   this.removeAttribute('style')
+
+  }
+
+  const keys = document.querySelectorAll('.key')
+
+  keys.forEach(key => key.addEventListener("click", playByMouseClick))
+  window.addEventListener('keydown', playByKeyPress)
+  keys.forEach(key => key.addEventListener("transitionend", removePlayingStyle))
+
+</script>
+
+
+</body>
+</html>

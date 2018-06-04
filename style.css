@@ -1,0 +1,55 @@
+html {
+  font-size: 10px;
+  background-color: #ffffff;
+  background-size: cover; }
+  html body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    height: 100vh;
+    overflow: hidden; }
+    html body .keys {
+      display: flex;
+      flex: 1;
+      flex-wrap: wrap;
+      height: 400px;
+      max-width: 1000px;
+      min-width: 260px;
+      align-content: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto; }
+    html body .key {
+      background-color: #7b3ddf0e;
+      border: 2px solid #4400b149;
+      box-shadow: transparent;
+      border-radius: 50%;
+      box-sizing: border-box;
+      flex: 0 0 1;
+      margin: 1.4rem 1.4rem 8rem 1.4rem;
+      font-size: 1.5rem;
+      width: 160px;
+      height: 160px;
+      text-align: center;
+      color: rgba(71, 71, 71, 0.274);
+      text-shadow: 0.2rem 0 3.5rem rgba(53, 53, 53, 0.247);
+      transition: all 0.9s ease-in;
+      position: relative;
+      z-index: 2; }
+      html body .key kbd {
+        margin-top: 25%;
+        display: block;
+        font-size: 4rem;
+        transition: all 0.2s linear; }
+      html body .key__sound {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: .2rem;
+        color: #3030308a;
+        font-weight: bold; }
+
+/*# sourceMappingURL=style.css.map */
